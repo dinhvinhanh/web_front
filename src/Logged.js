@@ -12,6 +12,10 @@ import corgi5 from "./assets/corgi5.jpg";
 import corgi6 from "./assets/corgi6.jpg";
 import { Input } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
+import Actionmodel from "./components/action_model/form_actionmodel";
+import "./components/action_model/form_actionmodel.css";
+import ActionaddAlbum from "./components/action_addalbum/form_actionaddalbum";
+import "./components/action_addalbum/form_actionaddalbum.css";
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -22,6 +26,7 @@ import {
   UploadOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
+import actionaddAlbum from "./components/action_addalbum/form_actionaddalbum.js";
 const suffix = (
   <AudioOutlined
     style={{
@@ -68,10 +73,10 @@ const Logged = () => {
             Album
           </Menu.Item>
           <Menu.Item key="3" icon={<CloudOutlined />}>
-            Sharing
+            <ActionaddAlbum />
           </Menu.Item>
           <Menu.Item key="4" icon={<ShopOutlined />}>
-            Bin
+            <Actionmodel />
           </Menu.Item>
         </Menu>
       </Sider>
