@@ -1,16 +1,21 @@
-import { Layout, Menu } from 'antd';
-import { Link, Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import React, {Suspense} from "react";
+import {Layout, Menu} from 'antd';
+import {Link, Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import {UploadOutlined, UserOutlined, VideoCameraOutlined} from '@ant-design/icons';
+
 import Images from "../Images/Images";
-
+import Albums from "../Albums/Albums";
+import Shared from "../Shared/Shared";
+import Trash from "../Trash/Trash";
 import './AppLayout.css';
+import logo from './../../assets/logo.png';
 
-const { Header, Content, Footer, Sider } = Layout;
+const {Header, Content, Footer, Sider} = Layout;
 
 const AppLayout = () => {
     return (
         <Router>
-            <Layout style={{height:"100vh"}}>
+            <Layout style={{height: "100vh"}}>
                 <Sider
                     breakpoint="lg"
                     collapsedWidth="0"
@@ -21,38 +26,54 @@ const AppLayout = () => {
                         console.log(collapsed, type);
                     }}
                 >
-                    <div className="logo" />
+                    <div className="logo">
+                        <Link to="/">
+                            <img className={'img'} src={logo} alt="logo"/>
+                        </Link>
+                    </div>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1" icon={<UserOutlined />}>
-                            <Link to={'/images'}>
-                                Images
+                        <Menu.Item key="1" icon={<UserOutlined/>}>
+                            <Link to={'/photos'}>
+                                Photos
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                            Albums
+                        <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
+                            <Link to={'/albums'}>
+                                Albums
+                            </Link>
                         </Menu.Item>
-                        <Menu.Item key="3" icon={<UploadOutlined />}>
-                            Sharing
+                        <Menu.Item key="3" icon={<UploadOutlined/>}>
+                            <Link to={'/shared'}>
+                                Shared
+                            </Link>
                         </Menu.Item>
-                        <Menu.Item key="4" icon={<UserOutlined />}>
-                            Trash
+                        <Menu.Item key="4" icon={<UserOutlined/>}>
+                            <Link to={'/images'}>
+                                Trash
+                            </Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-                    <Content style={{ margin: '24px 16px 0' }}>
-                        <div className="site-layout-background" style={{ padding: 24 }}>
+                    <Header className="site-layout-sub-header-background" style={{padding: 0}}/>
+                    <Content style={{margin: '24px 16px 0'}}>
+                        <div className="site-layout-background" style={{padding: 24}}>
                             <Switch>
-                                <Route path="/images">
-                                    <Images />
+                                <Route exact path="/photos">
+                                    <Images/>
                                 </Route>
-                                <Route path="/next-item">
+                                <Route exact path="/albums">
+                                    <Albums/>
+                                </Route>
+                                <Route exact path="/shared">
+                                    <Shared/>
+                                </Route>
+                                <Route exact path="/images">
+                                    <Trash/>
                                 </Route>
                             </Switch>
                         </div>
                     </Content>
-                    {/*<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>*/}
                 </Layout>
             </Layout>
         </Router>

@@ -3,6 +3,8 @@ import React, {useState} from "react";
 
 import CustomHeader from "./CustomHeader/CustomHeader";
 
+import ImageInfos from "../../components/ImageInfos/ImageInfos";
+
 const asdfasdf = [
     {
         src: "https://c5.staticflickr.com/9/8768/28941110956_b05ab588c1_b.jpg",
@@ -12,6 +14,7 @@ const asdfasdf = [
         caption: "8H (gratisography.com)"
     },
     {
+        id: "adfaldfjal;sdfjal;sdal;sdf",
         src: "https://c3.staticflickr.com/9/8583/28354353794_9f2d08d8c0_b.jpg",
         thumbnail: "https://c3.staticflickr.com/9/8583/28354353794_9f2d08d8c0_n.jpg",
         thumbnailWidth: 320,
@@ -174,6 +177,7 @@ const Demo1 = () => {
                 ]}
                 showLightboxThumbnails={true}
             />
+            <ImageInfos visible={infoModalVisible} onCloseInfo={() => setInfoModalVisible(false)}/>
         </div>
     );
 

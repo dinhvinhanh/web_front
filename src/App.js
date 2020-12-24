@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./containers/Login/Login";
-// import "antd/dist/antd.css";
+import "antd/dist/antd.css";
 import AppLayout from "./containers/AppLayout/AppLayout";
 import React from "react";
 

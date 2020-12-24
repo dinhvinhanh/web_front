@@ -2,6 +2,7 @@ import React from 'react';
 import {DeleteFilled, HomeOutlined, InfoCircleFilled, StarFilled, ToolFilled} from "@ant-design/icons";
 
 import './CustomHeader.css';
+import ImageInfos from "../../../components/ImageInfos/ImageInfos";
 
 const CustomHeader = ({
     onClickInfo,
