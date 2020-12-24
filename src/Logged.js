@@ -8,11 +8,17 @@ import "./index.js";
 import { Layout, Menu } from "antd";
 import { Image } from "antd";
 import { Input } from "antd";
-import ImageGallery from 'react-image-gallery';
+import ImageGallery from "react-image-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { AudioOutlined } from "@ant-design/icons";
 
-import ReactBnbGallery from 'react-bnb-gallery';
+import Actionmodel from "./components/action_model/form_actionmodel";
+import "./components/action_model/form_actionmodel.css";
+import ActionaddAlbum from "./components/action_addalbum/form_actionaddalbum";
+import "./components/action_addalbum/form_actionaddalbum.css";
+
+import ReactBnbGallery from "react-bnb-gallery";
+
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -23,6 +29,7 @@ import {
   UploadOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
+import actionaddAlbum from "./components/action_addalbum/form_actionaddalbum.js";
 const suffix = (
   <AudioOutlined
     style={{
@@ -49,8 +56,6 @@ const Logged = () => {
   };
   const [isOpen, setIsOpen] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
-  
-
 
   const toggleSelectAll = () => {
     setSelectAll(!selectAll);
@@ -66,7 +71,6 @@ const Logged = () => {
         photo={photo}
         left={left}
         top={top}
-
       />
     ),
     [selectAll]
@@ -75,7 +79,7 @@ const Logged = () => {
     <Layout>
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal"> 
+        <Menu theme="dark" mode="horizontal">
           <Search
             placeholder="input search text"
             allowClear
@@ -109,10 +113,10 @@ const Logged = () => {
             Album
           </Menu.Item>
           <Menu.Item key="3" icon={<CloudOutlined />}>
-            Sharing
+            <ActionaddAlbum />
           </Menu.Item>
           <Menu.Item key="4" icon={<ShopOutlined />}>
-            Bin
+            <Actionmodel />
           </Menu.Item>
         </Menu>
       </Sider>
@@ -124,32 +128,28 @@ const Logged = () => {
             style={{ padding: 24, textAlign: "center" }}
           ></div>
           <p>
-        <button onClick={toggleSelectAll}>toggle select all</button>
-        <button>selected mode</button>
-        
-      </p>
-      <Gallery photos={photos} renderImage={imageRenderer} />
-      <div>
-      <Gallery photos={photos} onClick={openLightbox} />
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel
-              currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title
-              }))}
-            />
-          </Modal>
-        ) : null}
-      </ModalGateway>
-    </div>
-      <button onClick={() => setIsOpen(true)}>
-          Open gallery
-        </button>
-      
+            <button onClick={toggleSelectAll}>toggle select all</button>
+            <button>selected mode</button>
+          </p>
+          <Gallery photos={photos} renderImage={imageRenderer} />
+          <div>
+            <Gallery photos={photos} onClick={openLightbox} />
+            <ModalGateway>
+              {viewerIsOpen ? (
+                <Modal onClose={closeLightbox}>
+                  <Carousel
+                    currentIndex={currentImage}
+                    views={photos.map((x) => ({
+                      ...x,
+                      srcset: x.srcSet,
+                      caption: x.title,
+                    }))}
+                  />
+                </Modal>
+              ) : null}
+            </ModalGateway>
+          </div>
+          <button onClick={() => setIsOpen(true)}>Open gallery</button>
         </Content>
         <Footer style={{ textAlign: "center" }}></Footer>
       </Layout>
