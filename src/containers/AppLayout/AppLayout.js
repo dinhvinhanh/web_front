@@ -1,6 +1,7 @@
 import { Layout, Menu } from 'antd';
 import { Link, Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import Images from "../Images/Images";
 
 import './AppLayout.css';
 
@@ -44,7 +45,7 @@ const AppLayout = () => {
                         <div className="site-layout-background" style={{ padding: 24 }}>
                             <Switch>
                                 <Route path="/images">
-                                    <div>Something</div>
+                                    <Images />
                                 </Route>
                                 <Route path="/next-item">
                                 </Route>
