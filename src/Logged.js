@@ -1,21 +1,24 @@
-import React from "react";
+import SelectedImage from "./SelectedImage";
+import Gallery from "react-photo-gallery";
+import { photos } from "./photos";
+import React, { useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "./index.js";
 import { Layout, Menu } from "antd";
 import { Image } from "antd";
-import corgi1 from "./assets/corgi1.jpg";
-import corgi2 from "./assets/corgi2.jpg";
-import corgi3 from "./assets/corgi3.jpg";
-import corgi4 from "./assets/corgi4.jpg";
-import corgi5 from "./assets/corgi5.jpg";
-import corgi6 from "./assets/corgi6.jpg";
 import { Input } from "antd";
+import ImageGallery from "react-image-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
 import { AudioOutlined } from "@ant-design/icons";
+
 import Actionmodel from "./components/action_model/form_actionmodel";
 import "./components/action_model/form_actionmodel.css";
 import ActionaddAlbum from "./components/action_addalbum/form_actionaddalbum";
 import "./components/action_addalbum/form_actionaddalbum.css";
+
+import ReactBnbGallery from "react-bnb-gallery";
+
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -39,6 +42,39 @@ const { Search } = Input;
 const onSearch = (value) => console.log(value);
 const { Header, Content, Footer, Sider } = Layout;
 const Logged = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+  const openLightbox = useCallback((event, { photo, index }) => {
+    setCurrentImage(index);
+    setViewerIsOpen(true);
+  }, []);
+
+  const closeLightbox = () => {
+    setCurrentImage(0);
+    setViewerIsOpen(false);
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
+
+  const toggleSelectAll = () => {
+    setSelectAll(!selectAll);
+  };
+
+  const imageRenderer = useCallback(
+    ({ index, left, top, key, photo }) => (
+      <SelectedImage
+        selected={selectAll ? true : false}
+        key={key}
+        margin={"2px"}
+        index={index}
+        photo={photo}
+        left={left}
+        top={top}
+      />
+    ),
+    [selectAll]
+  );
   return (
     <Layout>
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
@@ -65,6 +101,10 @@ const Logged = () => {
         }}
       >
         <div className="logo" />
+        <br />
+        <br />
+        <br />
+        <br />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item key="1" icon={<UploadOutlined />}>
             Picture
@@ -87,17 +127,29 @@ const Logged = () => {
             className="site-layout-background"
             style={{ padding: 24, textAlign: "center" }}
           ></div>
-          <div className="images-grid-2">
-            <div>
-              <Image width={200} src={corgi1} />
-              <Image width={200} src={corgi2} />
-            </div>
-            <div>
-              <Image width={200} src={corgi3} />
-              <Image width={200} src={corgi4} />
-            </div>
+          <p>
+            <button onClick={toggleSelectAll}>toggle select all</button>
+            <button>selected mode</button>
+          </p>
+          <Gallery photos={photos} renderImage={imageRenderer} />
+          <div>
+            <Gallery photos={photos} onClick={openLightbox} />
+            <ModalGateway>
+              {viewerIsOpen ? (
+                <Modal onClose={closeLightbox}>
+                  <Carousel
+                    currentIndex={currentImage}
+                    views={photos.map((x) => ({
+                      ...x,
+                      srcset: x.srcSet,
+                      caption: x.title,
+                    }))}
+                  />
+                </Modal>
+              ) : null}
+            </ModalGateway>
           </div>
-          );
+          <button onClick={() => setIsOpen(true)}>Open gallery</button>
         </Content>
         <Footer style={{ textAlign: "center" }}></Footer>
       </Layout>
