@@ -1,0 +1,33 @@
+.searchbox1{
+} 
+
+.modal1{
+    width:fit-content; 
+    height: fit-content;
+} 
+
+.link1{  
+    margin-top:1em;
+    line-height: 45px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;   
+    border-style: groove;
+    border-color: grey; 
+    border-radius: 2px;
+    border-width:1px;  
+    margin-bottom:20.5px; 
+} 
+
+.ant-input-affix-wrapper {
+    height: 47px;
+}
+
+.ant-btn-primary {
+    height: 47px;
+} 
+
+.fontinf1{
+    margin-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
