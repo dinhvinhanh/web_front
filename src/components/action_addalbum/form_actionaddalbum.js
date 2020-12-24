@@ -28,7 +28,7 @@ const ActionaddAlbum = () => {
         title="Add to albums"
         centered
         visible={visible}
-        onOk={() => (checkedList >= 1 ? setVisible(false) : "")}
+        onOk={() => (indeterminate >= 1 ? setVisible(false) : "")}
         onCancel={() => setVisible(false)}
         width={450}
         okType="danger"
@@ -49,6 +49,7 @@ const ActionaddAlbum = () => {
                 title={<a>Con người</a>}
                 description="Không phải động vật"
               />
+              <label for="vehicle1"></label>
               <input
                 type="checkbox"
                 id="item1"
