@@ -1,20 +1,23 @@
 .logo {
-    height: 80px;
-    margin: 16px;
+    height: 7vh;
     align-content: center;
+    margin-right: 5%;
 }
 
-img {
-    margin-left: 16px;
+.mainLogo {
     max-width: 100%;
     max-height: 100%;
 }
 
-.site-layout-sub-header-background {
-    background: #fff;
+.mainLogo:hover {
+    cursor: pointer;
 }
 
-.site-layout-background {
-    background: #fff;
-    /*height: 100vh*/
+.appBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.something {
+    position: fixed;
 }

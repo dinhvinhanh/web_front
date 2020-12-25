@@ -1,0 +1,7 @@
+.albumThumbnail {
+    background-color: red;
+}
+
+.albumThumbnail:hover {
+    cursor: pointer;
+}

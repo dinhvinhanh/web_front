@@ -1,7 +1,8 @@
-import React, {Suspense, useEffect, useState} from "react";
-import {Layout, Menu} from 'antd';
-import {Link, Switch, Route, BrowserRouter as Router, useLocation} from 'react-router-dom';
-import {UploadOutlined, UserOutlined, VideoCameraOutlined} from '@ant-design/icons';
+import React, {useState} from "react";
+import {Layout} from 'antd';
+import {Link, Switch, Route} from 'react-router-dom';
+
+import {useHistory} from "react-router-dom";
 
 import Images from "../Images/Images";
 import Albums from "../Albums/Albums";
@@ -9,95 +10,126 @@ import Shared from "../Shared/Shared";
 import Trash from "../Trash/Trash";
 import './AppLayout.css';
 import logo from './../../assets/logo.png';
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+
+import MenuIcon from '@material-ui/icons/Menu';
+import {AccountCircle} from "@material-ui/icons";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+
+import Photos from "../Photos/Photos";
 
 const {Header, Content, Footer, Sider} = Layout;
 
 const AppLayout = () => {
 
-    const location = useLocation();
+    const history = useHistory();
 
-    const [selectedMenu, setSelectedMenu] = useState("0")
+    const [mainAnchorEl, setMainAnchorEl] = useState(null);
 
-    useEffect(() => {
-        console.log(location.pathname)
-        if (location.pathname === "/photos") {
-            console.log("here")
-            setSelectedMenu("1")
-        }
-        if (location.pathname === "/albums") {
-            setSelectedMenu("2")
-        }
-        if (location.pathname === "/shared") {
-            setSelectedMenu("3")
-        }
-        if (location.pathname === "/trash") {
-            setSelectedMenu("4")
-        }
-    }, [location])
+    const handleCloseMainMenu = () => {
+        setMainAnchorEl(null)
+    };
 
+    const handleClickMainMenu = (event) => {
+        setMainAnchorEl(event.currentTarget);
+    };
+
+    const [accountAnchorEl, setAccountAnchorEl] = useState(null);
+
+    const handleCloseAccountMenu = () => {
+        setAccountAnchorEl(null)
+    };
+
+    const handleClickAccountMenu = (event) => {
+        setAccountAnchorEl(event.currentTarget);
+    };
 
     return (
-        <Layout style={{height: "100vh"}}>
-            <Sider
-                breakpoint="lg"
-                collapsedWidth="0"
-                onBreakpoint={broken => {
-                    console.log(broken);
-                }}
-                onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
-                }}
-            >
-                <div className="logo">
-                    <Link to="/">
-                        <img className={'img'} src={logo} alt="logo"/>
-                    </Link>
-                </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={selectedMenu}>
-                    <Menu.Item key="1" icon={<UserOutlined/>}>
-                        <Link to={'/photos'}>
-                            <strong>Photos</strong>
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
-                        <Link to={'/albums'}>
-                            <strong>Albums</strong>
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<UploadOutlined/>}>
-                        <Link to={'/shared'}>
-                            <strong>Shared</strong>
-                        </Link>
-                    </Menu.Item>
-                    <Menu.Item key="4" icon={<UserOutlined/>}>
-                        <Link to={'/trash'}>
-                            <strong>Trash</strong>
-                        </Link>
-                    </Menu.Item>
-                </Menu>
-            </Sider>
-            <Layout>
-                <Header className="site-layout-sub-header-background" style={{padding: 0}}/>
-                <Content style={{margin: '24px 16px 0'}}>
-                    <div className="site-layout-background" style={{padding: 24}}>
-                        <Switch>
-                            <Route exact path="/photos">
-                                <Images/>
-                            </Route>
-                            <Route exact path="/albums">
-                                <Albums/>
-                            </Route>
-                            <Route exact path="/shared">
-                                <Shared/>
-                            </Route>
-                            <Route exact path="/images">
-                                <Trash/>
-                            </Route>
-                        </Switch>
+        <div>
+            <AppBar position={"static"}>
+                <Toolbar className={'appBar'} variant={"dense"}>
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={handleClickMainMenu}>
+                        <MenuIcon/>
+                    </IconButton>
+                    <Menu
+                        id="account"
+                        anchorEl={mainAnchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        open={Boolean(mainAnchorEl)}
+                        onClose={handleCloseMainMenu}
+                    >
+                        <MenuItem onClick={() => history.push("/photos")}>Photos</MenuItem>
+                        <MenuItem onClick={() => history.push("/albums")}>Albums</MenuItem>
+                        <MenuItem onClick={() => history.push("/shared")}>Shared</MenuItem>
+                        <MenuItem onClick={() => history.push("/trash")}>Trash</MenuItem>
+                    </Menu>
+                    <div className="logo">
+                        <img className={'mainLogo'} src={logo} alt="logo" onClick={() => {
+                            history.push("/photos")
+                        }}/>
                     </div>
-                </Content>
-            </Layout>
-        </Layout>
+                    <IconButton
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-haspopup="true"
+                        aria-controls="account-menu"
+                        onClick={handleClickAccountMenu}
+                        color="inherit"
+                    >
+                        <AccountCircle/>
+                    </IconButton>
+                    <Menu
+                        id="account"
+                        anchorEl={accountAnchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(accountAnchorEl)}
+                        onClose={handleCloseAccountMenu}
+                    >
+                        <MenuItem onClick={() => history.push("/profile")}>Profile</MenuItem>
+                        <MenuItem onClick={() => history.push("/login")}>Logout</MenuItem>
+                    </Menu>
+                </Toolbar>
+            </AppBar>
+            <div style={{margin: '24px 16px 0'}}>
+                <Switch>
+                    <Route exact path="/photos">
+                        <Photos/>
+                    </Route>
+                    <Route exact path="/albums">
+                        <Albums/>
+                    </Route>
+                    <Route exact path="/shared">
+                        <Shared/>
+                    </Route>
+                    <Route exact path="/images">
+                        <Trash/>
+                    </Route>
+                </Switch>
+            </div>
+        </div>
     )
 }
 
