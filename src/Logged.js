@@ -14,8 +14,8 @@ import { AudioOutlined } from "@ant-design/icons";
 
 import Actionmodel from "./components/action_model/form_actionmodel";
 import "./components/action_model/form_actionmodel.css";
-import ActionaddAlbum from "./components/action_addalbum/form_actionaddalbum";
-import "./components/action_addalbum/form_actionaddalbum.css";
+import ActionaddAlbum from "./components/AlbumModal/AlbumModal";
+import "./components/AlbumModal/AlbumModal.css";
 
 import ReactBnbGallery from "react-bnb-gallery";
 
@@ -29,7 +29,7 @@ import {
   UploadOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import actionaddAlbum from "./components/action_addalbum/form_actionaddalbum.js";
+import actionaddAlbum from "./components/AlbumModal/AlbumModal.js";
 const suffix = (
   <AudioOutlined
     style={{

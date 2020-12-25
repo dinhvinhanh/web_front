@@ -1,0 +1,19 @@
+.customHeader {
+    float: right;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 96%;
+}
+
+.icon {
+    font-size: 17px;
+    margin-top: 11px;
+    color: white;
+    margin-left: 3%;
+}
+
+.icon:hover {
+    cursor: pointer;
+}
