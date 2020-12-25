@@ -5,8 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@ant-design/pro-layout": "^6.5.0",
-    "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.3.2",
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "antd": "^4.9.4",
     "array-move": "^3.0.1",
     "axios": "^0.21.0",
@@ -17,7 +17,6 @@
     "react-grid-gallery": "^0.5.5",
     "react-scripts": "^4.0.1",
     "react-sortable-hoc": "^1.11.0",
-    "umi": "^3.3.2",
     "yorkie": "^2.0.0"
   },
   "scripts": {

@@ -34,22 +34,22 @@ const AppLayout = () => {
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1" icon={<UserOutlined/>}>
                             <Link to={'/photos'}>
-                                Photos
+                                <strong>Photos</strong>
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
                             <Link to={'/albums'}>
-                                Albums
+                                <strong>Albums</strong>
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="3" icon={<UploadOutlined/>}>
                             <Link to={'/shared'}>
-                                Shared
+                                <strong>Shared</strong>
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="4" icon={<UserOutlined/>}>
-                            <Link to={'/images'}>
-                                Trash
+                            <Link to={'/trash'}>
+                                <strong>Trash</strong>
                             </Link>
                         </Menu.Item>
                     </Menu>
