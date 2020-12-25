@@ -1,0 +1,13 @@
+.folderListWrap {
+    margin-top: 2vh;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.folderWrap {
+    flex: 25%;
+    margin-bottom: 30px;
+}

@@ -15,7 +15,7 @@ import './Album.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        width: window.innerWidth * 0.15,
     },
     media: {
         height: 0,
@@ -78,12 +78,12 @@ const Album = ({
                 anchorEl={actionAnchorEl}
                 anchorOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
+                    horizontal: 'left',
                 }}
                 keepMounted
                 transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
+                    horizontal: 'left',
                 }}
                 open={Boolean(actionAnchorEl)}
                 onClose={handleCloseActionMenu}

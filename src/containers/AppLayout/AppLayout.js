@@ -8,6 +8,8 @@ import Images from "../Images/Images";
 import Albums from "../Albums/Albums";
 import Shared from "../Shared/Shared";
 import Trash from "../Trash/Trash";
+import DetailedAlbum from "../DetailedAlbum/DetailedAlbum";
+import DetailedFolder from "../DetailedFolder/DetailedFolder";
 import './AppLayout.css';
 import logo from './../../assets/logo.png';
 import AppBar from "@material-ui/core/AppBar";
@@ -113,7 +115,7 @@ const AppLayout = () => {
                     </Menu>
                 </Toolbar>
             </AppBar>
-            <div style={{margin: '24px 16px 0'}}>
+            <div>
                 <Switch>
                     <Route exact path="/photos">
                         <Photos/>
@@ -124,8 +126,17 @@ const AppLayout = () => {
                     <Route exact path="/shared">
                         <Shared/>
                     </Route>
-                    <Route exact path="/images">
+                    <Route exact path="/trash">
                         <Trash/>
+                    </Route>
+                    <Route exact path="/albums/:id">
+                        <DetailedAlbum />
+                    </Route>
+                    <Route exact path="/folders/:id">
+                        <DetailedFolder />
+                    </Route>
+                    <Route exact path="/shared/:id">
+                        <DetailedAlbum />
                     </Route>
                 </Switch>
             </div>
