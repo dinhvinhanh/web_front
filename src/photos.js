@@ -219,5 +219,33 @@ export const testAlbums = [
         createdAt: "2012-01-13",
         totalImages: 50,
         thumbnailUrl: "https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_n.jpg"
+    },
+    {
+        id: 2,
+        title: "Album 2",
+        createdAt: "2012-01-6",
+        totalImages: 3,
+        thumbnailUrl: "https://c6.staticflickr.com/9/8520/28357073053_cafcb3da6f_n.jpg"
+    },
+    {
+        id: 3,
+        title: "Album 3",
+        createdAt: "2012-01-13",
+        totalImages: 10,
+        thumbnailUrl: "https://c8.staticflickr.com/9/8104/28973555735_ae7c208970_b.jpg"
+    },
+    {
+        id: 4,
+        title: "Album 4",
+        createdAt: "2012-01-13",
+        totalImages: 8,
+        thumbnailUrl: "https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_n.jpg"
+    },
+    {
+        id: 5,
+        title: "Album 5",
+        createdAt: "2012-01-13",
+        totalImages: 50,
+        thumbnailUrl: "https://c2.staticflickr.com/9/8239/28897202241_1497bec71a_n.jpg"
     }
 ]
