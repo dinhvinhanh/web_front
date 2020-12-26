@@ -10,7 +10,8 @@ const MultipleSelectHeader = ({
                                   onClickAllStar,
                                   onClickAllDelete,
                                   onClickAllAlbum,
-                                  onClickAllFolder
+                                  onClickAllFolder,
+                                  onClickAllShare
                               }) => {
 
     const actions = (
@@ -18,8 +19,11 @@ const MultipleSelectHeader = ({
             <Button variant="contained" onClick={onClickAllAlbum}>
                 Add to album
             </Button>
-            <Button variant="contained" onClick={onClickAllAlbum} style={{marginTop: 8}}>
+            <Button variant="contained" onClick={onClickAllFolder} style={{marginTop: 8}}>
                 Move to folder
+            </Button>
+            <Button variant="contained" onClick={onClickAllShare} style={{marginTop: 8}}>
+                Share
             </Button>
         </div>
     )

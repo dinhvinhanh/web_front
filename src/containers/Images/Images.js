@@ -8,6 +8,7 @@ import ImageInfos from "../../components/ImageInfos/ImageInfos";
 import MultipleSelectHeader from "../../components/MultipleSelectHeader/MultipleSelectHeader";
 import AlbumModal from "../../components/AlbumModal/AlbumModal";
 import SharingModal from "../../components/SharingModal/SharingModal";
+import FolderModal from "../../components/FolderModal/FolderModal";
 import {imagesHooks} from "../../hooks";
 
 import './Images.css';
@@ -27,7 +28,11 @@ const Images = ({
 
     const [infoModalVisible, setInfoModalVisible] = useState(false);
 
-    const [albumModalVisible, setAlbumModalVisible] = useState(false)
+    const [albumModalVisible, setAlbumModalVisible] = useState(false);
+
+    const [shareModalVisible, setShareModalVisible] = useState(false);
+
+    const [folderModalVisible, setFolderModalVisible] = useState(false);
 
     const [toolModalVisible, setToolModalVisible] = useState(false);
 
@@ -73,8 +78,13 @@ const Images = ({
     }
 
     const handleClickAllFolder = () => {
+        setFolderModalVisible(true)
         // open folder modal
         console.log("handle click all folders")
+    }
+
+    const handleClickAllShare = () => {
+        setShareModalVisible(true);
     }
 
     return (
@@ -87,7 +97,8 @@ const Images = ({
                             onClickAllStar={handleClickAllStar}
                             onClickAllDelete={handleClickAllDelete}
                             onClickAllAlbum={handleClickAllAlbum}
-                            onClickAllFolder={handleClickAllFolder}/>
+                            onClickAllFolder={handleClickAllFolder}
+                            onClickAllShare={handleClickAllShare}/>
                     </Affix>
                 ) : null
             }
@@ -110,7 +121,10 @@ const Images = ({
                 <ImageInfos visible={infoModalVisible} onCloseInfo={() => setInfoModalVisible(false)}/>
                 <AlbumModal chosenImageIDs={chosenIndexs} modalVisible={albumModalVisible}
                             onCloseModal={() => setAlbumModalVisible(false)}/>
-                <SharingModal chosenImageIDs={chosenIndexs} modalVisible={false}/>
+                <FolderModal chosenImageIDs={chosenIndexs} modalVisible={folderModalVisible}
+                             onCloseModal={() => setFolderModalVisible(false)}/>
+                <SharingModal chosenImageIDs={chosenIndexs} modalVisible={shareModalVisible}
+                              onCloseModal={() => setShareModalVisible(false)}/>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Modal, Comment, Input, Avatar} from "antd";
+import {Modal, Comment, Input} from "antd";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Checkbox from '@material-ui/core/Checkbox';
@@ -14,6 +14,11 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
 import logo from '../../assets/logo.png';
+import TextField from "@material-ui/core/TextField";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Avatar from "@material-ui/core/Avatar";
+
+import './SharingModal.css';
 
 const {Search} = Input;
 
@@ -25,64 +30,72 @@ const sampleUsers = [
         email: "test1@gmail.com",
         avatarUrl: ""
     }, {
-        id: 1,
+        id: 2,
         email: "test1@gmail.com",
         avatarUrl: ""
     }, {
-        id: 1,
+        id: 3,
         email: "test1@gmail.com",
         avatarUrl: ""
     },
     {
-        id: 1,
+        id: 4,
         email: "test1@gmail.com",
         avatarUrl: ""
     }, {
-        id: 1,
+        id: 5,
         email: "test1@gmail.com",
         avatarUrl: ""
     }, {
-        id: 1,
+        id: 6,
         email: "test1@gmail.com",
         avatarUrl: ""
     },
     {
-        id: 1,
+        id: 7,
         email: "test1@gmail.com",
         avatarUrl: ""
     }, {
-        id: 1,
+        id: 8,
         email: "test1@gmail.com",
         avatarUrl: ""
     }, {
-        id: 1,
+        id: 9,
         email: "test1@gmail.com",
         avatarUrl: ""
     }
 ]
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%'
+    },
+}));
+
 const SharingModal = ({
-                        chosenImageIDs,
-                        modalVisible,
-                        onCloseModal
-                    }) => {
+                          chosenImageIDs,
+                          modalVisible,
+                          onCloseModal
+                      }) => {
+
+    const classes = useStyles();
 
     const [users, setUsers] = useState(sampleUsers)
 
     const [checked, setChecked] = useState([]);
 
-    // const handleCheck = (value) => () => {
-    //     const currentIndex = checked.indexOf(value);
-    //     const newChecked = [...checked];
-    //
-    //     if (currentIndex === -1) {
-    //         newChecked.push(value);
-    //     } else {
-    //         newChecked.splice(currentIndex, 1);
-    //     }
-    //     setChecked(newChecked);
-    // };
-    //
+    const handleCheck = (value) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if (currentIndex === -1) {
+            newChecked.push(value);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+        setChecked(newChecked);
+    };
+
     const handleShare = () => {
         console.log(chosenImageIDs)
         console.log(checked)
@@ -92,11 +105,17 @@ const SharingModal = ({
         if (checked.length !== 0) {
             return (
                 <Button variant="contained" color="secondary" onClick={handleShare}>
-                    Add
+                    Share
                 </Button>
             )
         }
         return null;
+    }
+
+    const handleSearch = () => {
+        // call api and update users setUsers = ()
+
+        /// move users list to overflow-y
     }
 
     return (
@@ -106,32 +125,33 @@ const SharingModal = ({
             onCancel={() => onCloseModal()}
             centered
             footer={footer()}>
-            <Autocomplete
-                multiple
-                limitTags={2}
-                id="multiple-limit-tags"
-                options={users}
-                getOptionLabel={(user) => user.email}
-                // defaultValue={}
-                renderInput={(user) => (
-                    <ListItem key={user.id} button>
-                        <ListItemAvatar>
-                            <Avatar
-                                // alt={`Avatar n°${value + 1}`}
-                                src={logo}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText id={user.id} primary={`${user.name}`} />
-                        <ListItemSecondaryAction>
-                            <Checkbox
-                                edge="end"
-                                onChange={() => {console.log("something")}}
-                                checked={checked.indexOf(user.id) !== -1}
-                            />
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                )}
-            />
+            <TextField id="search" label="Search users" fullWidth onKeyUp={handleSearch}/>
+            <div className={'sharesList'}>
+                <List className={classes.root}>
+                    {users.map((user, index) => {
+                        const labelId = `checkbox-list-secondary-label-${index}`;
+                        return (
+                            <ListItem key={user.id} button>
+                                <ListItemAvatar>
+                                    <Avatar
+                                        alt={`Avatar n°${user.id + 1}`}
+                                        src={`${user.avatarUrl}`}
+                                    />
+                                </ListItemAvatar>
+                                <ListItemText id={labelId} primary={`${user.email}`}/>
+                                <ListItemSecondaryAction>
+                                    <Checkbox
+                                        edge="end"
+                                        onChange={handleCheck(user.id)}
+                                        checked={checked.indexOf(user.id) !== -1}
+                                        inputProps={{'aria-labelledby': labelId}}
+                                    />
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        );
+                    })}
+                </List>
+            </div>
         </Modal>
     )
 }

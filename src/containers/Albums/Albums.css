@@ -1,4 +1,5 @@
 .albumListWrap {
+    margin-top: 2vh;
     width: 80%;
     display: flex;
     flex-wrap: wrap;
