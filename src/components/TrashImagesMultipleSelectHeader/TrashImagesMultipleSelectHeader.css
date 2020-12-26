@@ -1,0 +1,47 @@
+.multipleSelectHeader {
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    background-color: #DCDCDC;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.multipleTrashIcons {
+    margin-left: 1%;
+    display: flex;
+    flex-direction: row;
+    width: 4%;
+    justify-content: space-between;
+}
+
+.multipleIcon {
+    margin-left: 1%;
+}
+
+.like {
+    color: yellow;
+}
+
+.multipleIcon:hover {
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+}
+
+.action {
+    border-radius: 3px;
+    text-align: center;
+    height: 3vh;
+}
+
+.action:hover {
+    cursor: pointer;
+    background-color: #DCDCDC;
+}

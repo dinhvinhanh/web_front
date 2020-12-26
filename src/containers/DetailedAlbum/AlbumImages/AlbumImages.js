@@ -2,18 +2,16 @@ import Gallery from "react-grid-gallery";
 import React, {useEffect, useState} from "react";
 import {Checkbox, Affix} from 'antd';
 
-import CustomHeader from "./CustomHeader/CustomHeader";
+import AlbumImagesHeader from "./AlbumImagesHeader/AlbumImagesHeader";
 
-import ImageInfos from "../../components/ImageInfos/ImageInfos";
-import MultipleSelectHeader from "../../components/MultipleSelectHeader/MultipleSelectHeader";
-import AlbumModal from "../../components/AlbumModal/AlbumModal";
-import SharingModal from "../../components/SharingModal/SharingModal";
-import FolderModal from "../../components/FolderModal/FolderModal";
-import {imagesHooks} from "../../hooks";
+import ImageInfos from "../../../components/ImageInfos/ImageInfos";
+import AlbumImagesMultipleSelectHeader
+    from "../../../components/AlbumImagesMultipleSelectHeader/AlbumImagesMultipleSelectHeader";
+import {imagesHooks} from "../../../hooks";
 
-import './Images.css';
+import './AlbumImages.css';
 
-const Images = ({
+const AlbumImages = ({
                     handledImages
                 }) => {
     const [images, setImages] = useState(handledImages);
@@ -28,13 +26,15 @@ const Images = ({
 
     const [infoModalVisible, setInfoModalVisible] = useState(false);
 
-    const [albumModalVisible, setAlbumModalVisible] = useState(false);
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
-    const [shareModalVisible, setShareModalVisible] = useState(false);
+    const handleClickDownload = () => {
 
-    const [folderModalVisible, setFolderModalVisible] = useState(false);
+    }
 
-    const [toolModalVisible, setToolModalVisible] = useState(false);
+    const handleClickLocation = () => {
+
+    }
 
     const onChangeSelectAll = () => {
         let selectAllChecked = !allSelected;
@@ -63,28 +63,8 @@ const Images = ({
         handleSelectImageIndex(index)
     }
 
-    const handleClickAllStar = () => {
-        console.log("anh tuan")
-    }
-
     const handleClickAllDelete = () => {
         console.log("handle onClick AllDelete")
-    }
-
-    const handleClickAllAlbum = () => {
-        setAlbumModalVisible(true)
-        // open album modal
-        console.log("handle click all albums")
-    }
-
-    const handleClickAllFolder = () => {
-        setFolderModalVisible(true)
-        // open folder modal
-        console.log("handle click all folders")
-    }
-
-    const handleClickAllShare = () => {
-        setShareModalVisible(true);
     }
 
     return (
@@ -92,13 +72,9 @@ const Images = ({
             {
                 chosenIndexs.length !== 0 ? (
                     <Affix offsetTop={10} style={{margin: 10}}>
-                        <MultipleSelectHeader
+                        <AlbumImagesMultipleSelectHeader
                             onChangeSelectAll={onChangeSelectAll}
-                            onClickAllStar={handleClickAllStar}
-                            onClickAllDelete={handleClickAllDelete}
-                            onClickAllAlbum={handleClickAllAlbum}
-                            onClickAllFolder={handleClickAllFolder}
-                            onClickAllShare={handleClickAllShare}/>
+                            onClickAllDelete={handleClickAllDelete} />
                     </Affix>
                 ) : null
             }
@@ -108,24 +84,20 @@ const Images = ({
                     onSelectImage={onSelectImage}
                     lightboxWidth={1536}
                     customControls={[
-                        <CustomHeader
+                        <AlbumImagesHeader
                             onClickInfo={() => setInfoModalVisible(true)}
-                            onClickTool={() => setToolModalVisible(true)}/>
+                            onClickDelete={() => setDeleteModalVisible(true)}
+                            onClickDownload={() => handleClickDownload()}
+                            onClickLocation={() => handleClickLocation()}/>
                     ]}
                     showLightboxThumbnails={true}
                     margin={4}
                 />
                 <ImageInfos visible={infoModalVisible} onCloseInfo={() => setInfoModalVisible(false)}/>
-                <AlbumModal chosenImageIDs={chosenIndexs} modalVisible={albumModalVisible}
-                            onCloseModal={() => setAlbumModalVisible(false)}/>
-                <FolderModal chosenImageIDs={chosenIndexs} modalVisible={folderModalVisible}
-                             onCloseModal={() => setFolderModalVisible(false)}/>
-                <SharingModal chosenImageIDs={chosenIndexs} modalVisible={shareModalVisible}
-                              onCloseModal={() => setShareModalVisible(false)}/>
             </div>
         </div>
     );
 
 }
 
-export default Images;
+export default AlbumImages;
