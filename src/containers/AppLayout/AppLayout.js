@@ -9,6 +9,7 @@ import Albums from "../Albums/Albums";
 import Shared from "../Shared/Shared";
 import Trash from "../Trash/Trash";
 import DetailedAlbum from "../DetailedAlbum/DetailedAlbum";
+import UserInfo from "../../components/UserInfo/UserInfo";
 import DetailedFolder from "../DetailedFolder/DetailedFolder";
 import './AppLayout.css';
 import logo from './../../assets/logo.png';
@@ -22,6 +23,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import Photos from "../Photos/Photos";
+
+import Search from "../Search/Search";
 
 import SpeedDials from "../../components/SpeedDials/SpeedDials";
 
@@ -81,6 +84,7 @@ const AppLayout = () => {
                         <MenuItem onClick={() => history.push("/albums")}>Albums</MenuItem>
                         <MenuItem onClick={() => history.push("/shared")}>Shared</MenuItem>
                         <MenuItem onClick={() => history.push("/trash")}>Trash</MenuItem>
+                        <MenuItem onClick={() => history.push("/search")}>Search</MenuItem>
                     </Menu>
                     <div className="logo">
                         <img className={'mainLogo'} src={logo} alt="logo" onClick={() => {
@@ -140,6 +144,12 @@ const AppLayout = () => {
                     </Route>
                     <Route exact path="/shared/:id">
                         <Shared />
+                    </Route>
+                    <Route exact path="/profile">
+                        <UserInfo />
+                    </Route>
+                    <Route exact path="/search">
+                        <Search />
                     </Route>
                 </Switch>
             </div>

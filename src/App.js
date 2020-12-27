@@ -16,6 +16,8 @@ const App = () => {
           <Route exact path="/shared" name="photos" component={AppLayout} />
           <Route exact path="/shared/:id" name="photos" component={AppLayout} />
           <Route exact path="/trash" name="albums" component={AppLayout} />
+          <Route exact path="/profile" name="profile" component={AppLayout} />
+          <Route exact path="/search" name="search" component={AppLayout} />
           <Route exact path="/login" name="login" component={Login} />
       </Switch>
     </BrowserRouter>
