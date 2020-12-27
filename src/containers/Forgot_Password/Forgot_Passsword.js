@@ -5,9 +5,11 @@ import Form_Forgot_Password from "../../components/Forgot_Password/Form_Forgot_P
 import "../../components/Forgot_Password/Form_Forgot_Password.css";
 
 const ForgotPassword = () => {
-  return (
-    <div className="container1">
-      <Form_Forgot_Password />
+  return ( 
+    <div className="forgotpasswordborder1">
+      <div className="forgotpasswordcontainer">
+        <Form_Forgot_Password />
+      </div>
     </div>
   );
 };

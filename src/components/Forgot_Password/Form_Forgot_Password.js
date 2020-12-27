@@ -2,11 +2,11 @@ import { Form, Input, InputNumber, Button } from "antd";
 import Title from "antd/lib/skeleton/Title";
 import React from "react";
 import "./Form_Forgot_Password";
-
-const layout = {
-  labelCol: { span: 2 },
-  wrapperCol: { span: 20 },
-};
+import logo1 from './../../assets/logo1.png';
+// const layout = {
+//   labelCol: { span: 2 },
+//   wrapperCol: { span: 20 },
+// };
 
 const validateMessages = {
   required: "Email is required!",
@@ -22,25 +22,32 @@ const forgotPassword = () => {
 
   return (
     <Form
-      {...layout}
+      // {...layout}
       name="nest-messages"
       onFinish={onFinish}
       validateMessages={validateMessages}
     >
-      <h1> Forgot your password ?</h1>
-      <h3>
+      <div className="forgotpasswordlogo1">
+            <img src={logo1} alt="logo" width="270" height="250" />
+        </div>
+      <p className="forgotpasswordfont2"> Forgot your password ?</p>
+      <p className="forgotpasswordfont1">
         Please enter your email and we'll send you instructions on how to reset
         your password
-      </h3>
+      </p>
       <br></br>
       <Form.Item
         name={["user", "email"]}
         rules={[{ type: "email", required: true }]}
       >
-        <Input placeholder="Email" />
+        <Input 
+          className="forgotpasswordform1"
+          placeholder="Email" />
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button type="primary" htmlType="submit">
+      <Form.Item 
+      // wrapperCol={{ ...layout.wrapperCol, offset: 8 }}
+      >
+        <Button type="primary" htmlType="submit" className="forgotpasswordbutton1">
           Submit
         </Button>
       </Form.Item>
