@@ -12,6 +12,7 @@ const App = () => {
           <Route exact path="/photos" name="photos" component={AppLayout} />
           <Route exact path="/albums" name="albums" component={AppLayout} />
           <Route exact path="/login" name="login" component={Login} />
+
       </Switch>
     </BrowserRouter>
   );
