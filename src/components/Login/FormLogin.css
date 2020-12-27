@@ -3,7 +3,7 @@
 .container {
   max-width: 400px;
   width: 100%;
-  margin: 170px auto;
+  margin: 30px auto;
 }
 .login-form-forgot {
   float: right;
@@ -13,11 +13,21 @@
 }
 .login-form-button {
   width: 100%;
-}
-.ant-input-affix-wrapper {
   height: 50px;
 }
-.ant-btn-primary {
-  height: 40px;
-  margin-bottom: 20px;
+.form-box {
+  height: 50px;
+}
+
+.form-login {
+  width: 650px;
+  height: 650px;
+  background: #e8eaed;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  margin: 50px auto;
+}
+.Logo {
+  text-align: center;
+  padding-bottom: 0px;
 }

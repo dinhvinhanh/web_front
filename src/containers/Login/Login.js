@@ -10,9 +10,11 @@ const Login = () => {
   //   const { isRegisterd, setIsRegisterd, afadf } = useLogin();
 
   return (
-    <div className="container">
-      <FormLogin />
-      {/* {isRegisterd ? <FormLogin /> : <FormRegister />} */}
+    <div className="form-login">
+      <div className="container">
+        <FormLogin />
+        {/* {isRegisterd ? <FormLogin /> : <FormRegister />} */}
+      </div>
     </div>
   );
 };
