@@ -7,8 +7,14 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 
-function onChange(pagination, filters, sorter, extra, checked) {
-  console.log("params", pagination, filters, sorter, extra,`switch to ${checked}`);
+function onChange(
+  pagination, 
+  filters,
+   sorter, extra, checked) {
+  console.log("params", 
+  pagination, 
+  filters, 
+  sorter, extra,`switch to ${checked}`);
 }
 
 const data = [
@@ -24,14 +30,14 @@ const data = [
   {
     key: "2",
     username: "Joe Black",
-    email: "1@gmail.com",
+    email: "2@gmail.com",
     usedstorage: 42,
 
   },
   {
     key: "3",
     username: "Jim Green",
-    email: "1@gmail.com",
+    email: "3@gmail.com",
     usedstorage: 23,
 
 
@@ -39,11 +45,58 @@ const data = [
   {
     key: "4",
     username: "Jim Red",
-    email: "1@gmail.com",
+    email: "4@gmail.com",
+    usedstorage: 324,
+
+
+  },{
+    key: "5",
+    username: "Jim Browwn",
+    email: "5@gmail.com",
+    usedstorage: 132,
+
+
+  },{
+    key: "6",
+    username: "Jim  NOT Red",
+    email: "6@gmail.com",
+    usedstorage: 52,
+
+
+  },{
+    key: "7",
+    username: "Grey Red",
+    email: "7@gmail.com",
+    usedstorage: 96,
+
+
+  },{
+    key: "8",
+    username: "John Red",
+    email: "8@gmail.com",
     usedstorage: 32,
+  }, 
 
-
-  }
+  {
+    key: "9",
+    username: "NTP",
+    email: "9@gmail.com",
+    usedstorage: 999,
+  },
+  {
+    key: "10",
+    username: "HTL",
+    email: "10@gmail.com",
+    usedstorage: 1,
+  }, 
+  {
+    key: "11",
+    username: "DTQT",
+    email: "11@gmail.com",
+    usedstorage: 69,
+  },
+  
+  
 ];
 
 class User extends React.Component {
@@ -143,7 +196,9 @@ class User extends React.Component {
         title: "STT",
         dataIndex: "key",
         key: "key",
-        width: "3%",
+        width: "3%", 
+        defaultSortOrder: "cancel",
+        sorter: (a, b) => a.key - b.key
 
       },
       {
@@ -191,7 +246,7 @@ class User extends React.Component {
         )
       }
     ];
-    return <Table columns={columns} dataSource={data} onChange={onChange} />;
+    return <Table columns={columns} dataSource={data} onChange={onChange} pagination={false}/>;
   }
 }
 
