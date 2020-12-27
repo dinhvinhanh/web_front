@@ -7,10 +7,16 @@ import TrashImagesMultipleSelectHeader
 import {imagesHooks} from "../../../hooks";
 
 import './TrashImages.css';
+import {imagesServices} from "../../../services";
+
+import {useHistory} from 'react-router-dom';
 
 const TrashImages = ({
+                         handledIDs,
                          handledImages
                      }) => {
+    const history = useHistory();
+
     const [images, setImages] = useState(handledImages);
 
     const {
@@ -61,11 +67,42 @@ const TrashImages = ({
     }
 
     const handleClickAllDelete = () => {
-        console.log("handle onClick AllDelete")
+        console.log(images)
+        console.log(handledIDs)
+        console.log(chosenIndexs)
+        let chosenImageIDs = handledIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        imagesServices.deleteImageForever(chosenImageIDs).then(
+            res => {
+                console.log("something")
+                console.log(res.data)
+                window.location.reload()
+            }
+        )
     }
 
     const handleClickAllRestore = () => {
+        console.log(images)
+        console.log(handledIDs)
+        console.log(chosenIndexs)
+        let chosenImageIDs = handledIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
 
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        imagesServices.restoreTrashedImages(chosenImageIDs).then(
+            res => {
+                console.log(res)
+                history.push('/photos')
+            }
+        )
     }
 
     return (

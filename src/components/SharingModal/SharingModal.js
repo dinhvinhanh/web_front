@@ -19,7 +19,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Avatar from "@material-ui/core/Avatar";
 
 import './SharingModal.css';
-import {folderServices, userServices} from "../../services";
+import {folderServices, imagesServices, userServices} from "../../services";
 import {userHelper} from "../../helpers";
 
 const {Search} = Input;
@@ -57,7 +57,12 @@ const SharingModal = ({
     };
 
     const handleShare = () => {
-
+        imagesServices.shareImagesToUsers(chosenImageIDs, checked).then(
+            res => {
+                console.log(res);
+                window.location.reload()
+            }
+        )
     }
 
     const footer = () => {

@@ -10,11 +10,16 @@ import AlbumImagesMultipleSelectHeader
 import {imagesHooks} from "../../../hooks";
 
 import './AlbumImages.css';
+import {albumServices, imagesServices} from "../../../services";
 
 const AlbumImages = ({
-                    handledImages
-                }) => {
+                         albumID,
+                         handledImageIDs,
+                         handledImages
+                     }) => {
     const [images, setImages] = useState(handledImages);
+
+    const [imageIDs, setImageIDs] = useState(handledImageIDs)
 
     const {
         chosenIndexs,
@@ -58,7 +63,18 @@ const AlbumImages = ({
     }
 
     const handleClickAllDelete = () => {
-        console.log("handle onClick AllDelete")
+        let chosenImageIDs = imageIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        albumServices.trashImagesFromAlbum(imageIDs,albumID).then(
+            res => {
+                console.log(res.data)
+                window.location.reload()
+            }
+        )
     }
 
     return (
@@ -68,7 +84,7 @@ const AlbumImages = ({
                     <Affix offsetTop={10} style={{margin: 10}}>
                         <AlbumImagesMultipleSelectHeader
                             onChangeSelectAll={onChangeSelectAll}
-                            onClickAllDelete={handleClickAllDelete} />
+                            onClickAllDelete={handleClickAllDelete}/>
                     </Affix>
                 ) : null
             }

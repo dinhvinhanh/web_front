@@ -19,7 +19,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Avatar from "@material-ui/core/Avatar";
 
 import './TagModal.css';
-import {folderServices, tagServices, userServices} from "../../services";
+import {folderServices, imagesServices, tagServices, userServices} from "../../services";
 import {tagHelper, userHelper} from "../../helpers";
 
 const {Search} = Input;
@@ -57,10 +57,10 @@ const TagModal = ({
     };
 
     const handleAdd = () => {
-        tagServices.shareFolder(chosenImageIDs, checked).then(
+        imagesServices.addTagsToImages(chosenImageIDs, checked).then(
             res => {
-                console.log(res.data)
-                window.location.reload();
+                console.log(res);
+                window.location.reload()
             }
         )
     }
@@ -101,7 +101,7 @@ const TagModal = ({
                         const labelId = `checkbox-list-secondary-label-${index}`;
                         return (
                             <ListItem key={tag.id} button>
-                                <ListItemText id={labelId} primary={`${tag.email}`}/>
+                                <ListItemText id={labelId} primary={`${tag.name}`}/>
                                 <ListItemSecondaryAction>
                                     <Checkbox
                                         edge="end"

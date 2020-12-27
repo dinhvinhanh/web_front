@@ -11,17 +11,26 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import {imagesServices} from "../../services";
+import {imageHelper} from "../../helpers";
 
 const Trash = () => {
 
-    const [folders, setFolders] = useState(testAlbums)
+    const [trashImages, setTrashImages] = useState([])
 
-    const [trashImages, setTrashImages] = useState(testImages)
+    const [trashImageIDs, setTrashImageIds] = useState([])
 
     const [deleteModal, setDeleteModal] = useState(false)
 
     useEffect(() => {
-        // call api to get all folders
+        imagesServices.getAllTrashedImages().then(
+            res => {
+                const formattedImages = imageHelper.formatImagesList(res.data);
+                const formattedImageIDs = imageHelper.formatImageIDs(res.data);
+                setTrashImages(formattedImages)
+                setTrashImageIds(formattedImageIDs)
+            }
+        )
     }, [])
 
     useEffect(() => {
@@ -46,7 +55,7 @@ const Trash = () => {
 
     return (
         <div>
-            <TrashImages handledImages={trashImages}/>
+            {trashImages.length !== 0 ? <TrashImages handledIDs={trashImageIDs} handledImages={trashImages}/> : null }
             <Dialog
                 open={deleteModal}
                 onClose={() => setDeleteModal(false)}

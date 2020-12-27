@@ -8,22 +8,27 @@ import SharedImages from "./SharedImages/SharedImages";
 import SharedFolder from "../../components/SharedFolder/SharedFolder";
 
 import FolderModal from "../../components/FolderModal/FolderModal";
+import {imagesServices} from "../../services";
+import {imageHelper} from "../../helpers";
 
 const Shared = () => {
 
-    const {id} = useParams();
+    const [sharedImages, setSharedImages] = useState([]);
+
+    const [sharedImageIDs, setSharedImageIDs] = useState([])
 
     useEffect(() => {
-        if (id === undefined) {
-            // call api to get root shared folders and foot photos
-        } else {
-            // call api to get detailed folders
-        }
-    }, [id])
-
-    const [sharedImages, setSharedImages] = useState(testImages);
-
-    const [sharedFolders, setSharedFolders] = useState(testAlbums);
+        imagesServices.getAllSharedImages().then(
+            res => {
+                const formatSharedImages = imageHelper.formatImagesList(res.data)
+                const formatSharedIDs = imageHelper.formatImageIDs(res.data)
+                setSharedImages(formatSharedImages)
+                setSharedImageIDs(formatSharedIDs)
+                console.log(formatSharedImages)
+                console.log(formatSharedIDs)
+            }
+        )
+    }, [])
 
     const handleClickAddToPhotos = () => {
         //call api to add folders to my collection
@@ -32,7 +37,7 @@ const Shared = () => {
 
     return (
         <div>
-            <SharedImages handledImages={sharedImages} />
+            { sharedImages.length !== 0 ? <SharedImages handledIDs={sharedImageIDs} handledImages={sharedImages} /> : null}
         </div>
     )
 }

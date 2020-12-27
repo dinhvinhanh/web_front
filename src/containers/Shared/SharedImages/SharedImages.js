@@ -11,12 +11,20 @@ import SharedImagesHeader from "./SharedImagesHeader/SharedImagesHeader";
 import {imagesHooks} from "../../../hooks";
 
 import './SharedImages.css';
+import {imagesServices} from "../../../services";
+
+import {useHistory} from 'react-router-dom';
 
 const SharedImages = ({
+                          handledIDs,
                           handledImages
                       }) => {
 
+    const history = useHistory();
+
     const [images, setImages] = useState(handledImages);
+
+    // const [imageIDs, setImageIDs] = useState(handledIDs)
 
     const {
         chosenIndexs,
@@ -58,12 +66,34 @@ const SharedImages = ({
     }
 
     const handleClickDownload = () => {
-        // call api to download full size image
+        console.log("images", images)
+        console.log(handledIDs)
+        let chosenImageIDs = handledIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        for (let i=0; i < chosenImageIDs.length; i++) {
+            imagesServices.downloadImage(chosenImageIDs[i])
+        }
     }
 
     const handleClickAddToPhotos = () => {
-        // call api to add multiple photos to my collection
-        // history.push(photos)
+        console.log("images", images)
+        console.log(handledIDs)
+        let chosenImageIDs = handledIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        imagesServices.addToMyCollections(chosenImageIDs).then(
+            res => {
+                console.log(res);
+                history.push('/photos')
+            }
+        )
     }
 
     return (
@@ -73,7 +103,8 @@ const SharedImages = ({
                     <Affix offsetTop={10} style={{margin: 10}}>
                         <SharedImagesMultipleSelectHeader
                             onChangeSelectAll={onChangeSelectAll}
-                            onClickAllAddToPhotos={() => setFolderModalVisible(true)}/>
+                            onClickAllAddToPhotos={handleClickAddToPhotos}
+                            onClickDownload={handleClickDownload}/>
                     </Affix>
                 ) : null
             }

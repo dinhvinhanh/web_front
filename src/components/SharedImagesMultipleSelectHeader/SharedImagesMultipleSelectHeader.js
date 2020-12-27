@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {Checkbox} from "antd";
-import {DeleteFilled, FileAddOutlined} from "@ant-design/icons";
+import {DeleteFilled, DownSquareFilled, FileAddOutlined} from "@ant-design/icons";
 
 import './SharedImagesMultipleSelectHeader.css';
 
 const SharedImagesMultipleSelectHeader = ({
-                                             onChangeSelectAll,
-                                             onClickAllAddToPhotos,
-                                         }) => {
+                                              onChangeSelectAll,
+                                              onClickAllAddToPhotos,
+                                              onClickDownload
+                                          }) => {
 
     const [starStatus, setStarStatus] = useState(false);
 
@@ -18,6 +19,9 @@ const SharedImagesMultipleSelectHeader = ({
                 <div className={'multipleIcons'}>
                     <div className={'multipleIcon'}>
                         <FileAddOutlined onClick={onClickAllAddToPhotos}/>
+                    </div>
+                    <div className={'multipleIcon'}>
+                        <DownSquareFilled onClick={onClickDownload}/>
                     </div>
                 </div>
             </div>

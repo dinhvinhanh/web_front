@@ -26,7 +26,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import {albumServices} from "../../services";
-import {albumHelper} from "../../helpers";
+import {albumHelper, imageHelper} from "../../helpers";
 
 const testAlbum = {
     id: 1,
@@ -56,10 +56,19 @@ const DetailedAlbum = () => {
 
     const [detailedAlbum, setDetailedAlbum] = useState({})
 
+    const [images, setImages] = useState([])
+
+    const [imageIDs, setImageIDs] = useState([])
+
     useEffect(() => {
         albumServices.getDetailedAlbum(id).then(
             res => {
                 const formattedDetailedAlbum = albumHelper.formatDetailedAlbumRes(res.data)
+                const formatedImages = imageHelper.formatImagesList(res.data.album.images)
+                console.log(formatedImages)
+                const formatImageIDs = imageHelper.formatImageIDs(res.data.album.images)
+                setImageIDs(formatImageIDs)
+                setImages(formatedImages)
                 setDetailedAlbum(formattedDetailedAlbum)
             }
         )
@@ -104,7 +113,7 @@ const DetailedAlbum = () => {
             res => {
                 setRenameModal(false);
                 setActionAnchorEl(null);
-                history.push(`/albums/${id}`)
+                window.location.reload()
             }
         )
     }
@@ -188,7 +197,7 @@ const DetailedAlbum = () => {
                     </DialogActions>
                 </Dialog>
             </Card>
-            <AlbumImages handledImages={testImages} />
+            { images.length !== 0 ? <AlbumImages albumID={detailedAlbum.id} handledImageIDs={imageIDs} handledImages={images} /> : null}
         </div>
     )
 }

@@ -12,9 +12,11 @@ import TagModal from "../../components/TagModal/TagModal";
 import {imagesHooks} from "../../hooks";
 
 import './Images.css';
+import {imagesServices} from "../../services";
 
 const Images = ({
-                    handledImages
+                    handledImages,
+                    imagesIDs
                 }) => {
     const [images, setImages] = useState(handledImages);
 
@@ -52,7 +54,10 @@ const Images = ({
         setImages(tempImages)
     }
 
+    const [chosenIndex, setChosenIndex] = useState(0);
+
     const onSelectImage = (index, image) => {
+        setChosenIndex(index)
         const tempImages = images.slice()
         let img = tempImages[index];
         if (img.hasOwnProperty("isSelected"))
@@ -64,11 +69,31 @@ const Images = ({
     }
 
     const handleClickAllStar = () => {
-        console.log("anh tuan")
+        let chosenImageIDs = imagesIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        imagesServices.starImagesMultiple(chosenImageIDs).then(
+            res => {
+                window.location.reload()
+            }
+        )
     }
 
     const handleClickAllDelete = () => {
-        console.log("handle onClick AllDelete")
+        let chosenImageIDs = imagesIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+        chosenImageIDs = chosenImageIDs.filter(id => id !== undefined)
+        imagesServices.trashImagesMultiple(chosenImageIDs).then(
+            res => {
+                window.location.reload()
+            }
+        )
     }
 
     const handleClickAllAlbum = () => {
@@ -81,12 +106,30 @@ const Images = ({
         setShareModalVisible(true);
     }
 
-    const handleClickDownload = () => {
-
-    }
-
     const handleClickAllTag = () => {
         setTagModalVisible(true)
+    }
+
+    const handleChosenImageIDs = () => {
+        let chosenImageIDs = imagesIDs.map((id, index) => {
+            if (chosenIndexs.includes(index)) {
+                return id
+            }
+        })
+        return  chosenImageIDs.filter(id => id !== undefined)
+    }
+
+    const handleClickInfo = (index) => {
+        console.log(chosenIndex)
+        console.log()
+    }
+
+    const handleClickDownload = (index) => [
+        console.log(index)
+    ]
+
+    const onClickImage = (index) => {
+        console.log(index)
     }
 
     return (
@@ -111,18 +154,18 @@ const Images = ({
                     lightboxWidth={1536}
                     customControls={[
                         <CustomHeader
-                            onClickInfo={() => setInfoModalVisible(true)}
-                            onClickDownload={() => handleClickDownload()}/>
+                            onClickInfo={handleClickInfo}
+                            onClickDownload={handleClickDownload}/>
                     ]}
                     showLightboxThumbnails={true}
                     margin={4}
                 />
                 <ImageInfos visible={infoModalVisible} onCloseInfo={() => setInfoModalVisible(false)}/>
-                <AlbumModal chosenImageIDs={chosenIndexs} modalVisible={albumModalVisible}
+                <AlbumModal chosenImageIDs={handleChosenImageIDs()} modalVisible={albumModalVisible}
                             onCloseModal={() => setAlbumModalVisible(false)}/>
-                <SharingModal chosenImageIDs={chosenIndexs} modalVisible={shareModalVisible}
+                <SharingModal chosenImageIDs={handleChosenImageIDs()} modalVisible={shareModalVisible}
                               onCloseModal={() => setShareModalVisible(false)}/>
-                <TagModal chosenImageIDs={chosenIndexs} modalVisible={tagModalVisible}
+                <TagModal chosenImageIDs={handleChosenImageIDs()} modalVisible={tagModalVisible}
                           onCloseModal={() => setTagModalVisible(false)}/>
             </div>
         </div>

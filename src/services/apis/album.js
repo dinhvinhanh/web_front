@@ -26,10 +26,18 @@ const getDetailedAlbum = (albumID) => {
     return Client.get(albumURL + `/${albumID}/detail`)
 }
 
+const trashImagesFromAlbum = (imageIDs, albumID) => {
+    return Client.post(albumURL + `/${albumID}/delete_image`, {
+        select_all: false,
+        images_id: imageIDs
+    })
+}
+
 export default {
     getAlbumsList,
     createNewAlbum,
     renameAlbum,
     deleteAlbum,
-    getDetailedAlbum
+    getDetailedAlbum,
+    trashImagesFromAlbum
 }

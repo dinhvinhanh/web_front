@@ -38,6 +38,8 @@ const Photos = () => {
 
     const [images, setImages] = useState([])
 
+    const [imageIDs, setImageIDs] = useState([]);
+
     const [shareModal, setShareModal] = useState(false);
 
     const [trashModal, setTrashModal] = useState(false)
@@ -47,14 +49,16 @@ const Photos = () => {
             res => {
                 console.log(res.data)
                 const formattedImages = imageHelper.formatImagesList(res.data)
+                const formattedImageIDs = imageHelper.formatImageIDs(res.data)
                 setImages(formattedImages)
+                setImageIDs(formattedImageIDs)
             }
         )
     }, [id])
 
     return (
         <div>
-            {images.length !== 0 ? <Images handledImages={images}/> : null}
+            {images.length !== 0 ? <Images imagesIDs={imageIDs} handledImages={images}/> : null}
             {/*<Dialog*/}
             {/*    open={renameModal}*/}
             {/*    onClose={() => setRenameModal(false)}*/}

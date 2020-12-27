@@ -10,6 +10,10 @@ import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 
 import './AlbumModal.css';
+import {albumServices, imagesServices} from "../../services";
+import {albumHelper} from "../../helpers";
+
+import {useHistory} from 'react-router-dom';
 
 const {Search} = Input;
 
@@ -63,6 +67,8 @@ const AlbumModal = ({
                         onCloseModal
                     }) => {
 
+    const history = useHistory();
+
     const [albums, setAlbums] = useState(sampleAlbums)
 
     const [checked, setChecked] = useState([]);
@@ -80,13 +86,21 @@ const AlbumModal = ({
     };
 
     const handleAddAlbum = () => {
-        console.log(chosenImageIDs)
-        console.log(checked)
+        imagesServices.addImagesToAlbums(chosenImageIDs, checked).then(
+            res => {
+                history.push('/albums')
+            }
+        )
     }
 
     useEffect(() => {
-        // call apis to get all albums
-    }, [albums])
+        albumServices.getAlbumsList().then(
+            res => {
+                const albums = albumHelper.formatAlbumListRes(res.data)
+                setAlbums(albums)
+            }
+        )
+    }, [])
 
     const albumsList = () => {
 

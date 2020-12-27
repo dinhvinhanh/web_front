@@ -20,6 +20,7 @@ const App = () => {
           <PrivateRoute exact path="/trash" name="albums" component={AppLayout} />
           <PrivateRoute exact path="/profile" name="profile" component={AppLayout} />
           <PrivateRoute exact path="/search" name="search" component={AppLayout} />
+          <PrivateRoute exact path="/admin" name="admin" component={AppLayout} />
           <Route exact path="/login" name="login" component={Login} />
           <Route exact path="/register" name="login" component={Register} />
       </Switch>

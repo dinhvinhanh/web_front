@@ -1,5 +1,5 @@
 import './UserInfo.css';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
     List,
@@ -17,26 +17,53 @@ import {
     Progress
 } from 'antd';
 import { QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
+import {userServices} from "../../services";
 
 const { Option } = Select;
 // const AutoCompleteOption = AutoComplete.Option;
 
+const testData = [
+    {
+        title: 'UserName:',
+        content: 'Nguyen Trung Phong'
+    },
+    {
+        title: 'Email:',
+        content: 'NTP@gmail.com'
+    },
+    {
+        title: 'Last Login:',
+        content: '22-12-2000'
+    },
+];
+
 const UserInfo = () => {
 
-    const data = [
-        {
-            title: 'UserName:',
-            content: 'Nguyen Trung Phong'
-        },
-        {
-            title: 'Email:',
-            content: 'NTP@gmail.com'
-        },
-        {
-            title: 'Last Login:',
-            content: '22-12-2000'
-        },
-    ];
+    const [data, setData] = useState(testData)
+
+    useEffect(() => {
+        userServices.getMe().then(
+            res => {
+                const newMe = [
+                    {
+                        title: 'UserName:',
+                        content: res.data.user.user_name
+                    },
+                    {
+                        title: 'Email:',
+                        content: res.data.user.email
+                    },
+                    {
+                        title: 'Last Login:',
+                        content: res.data.user.last_login
+                    },
+                ];
+
+                setData(newMe)
+            }
+        )
+    }, [])
+
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
@@ -44,19 +71,6 @@ const UserInfo = () => {
     };
 
     const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-    // const onEmailChange = (value) => {
-    //     if (!value) {
-    //         setAutoCompleteResult([]);
-    //     } else {
-    //         setAutoCompleteResult(['@gmail.com', '@vnu.edu.vn', '@yahoo.com',].map((domain) => `${value}${domain}`));
-    //     }
-    // };
-
-    // const emailOptions = autoCompleteResult.map((email) => ({
-    //     label: email,
-    //     value: email,
-    // }));
 
     return (
         <Form>
@@ -93,7 +107,7 @@ const UserInfo = () => {
                     <Progress
                         className="progressbar1 ubox2"
                         strokeColor={'#fc0fad'}
-                        percent={30} />
+                        percent={Math.floor(Math.random() * 100)} />
                 </Tooltip>
             </div>
 

@@ -8,8 +8,15 @@ const formatImagesList = (res) => {
     })
 }
 
+const formatImageIDs = (res) => {
+    return res.map(r => {
+        return r.id
+    })
+}
+
 export default {
-    formatImagesList
+    formatImagesList,
+    formatImageIDs
 }
 
 // {

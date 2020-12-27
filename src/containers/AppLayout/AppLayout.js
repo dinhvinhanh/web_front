@@ -8,6 +8,7 @@ import Images from "../Images/Images";
 import Albums from "../Albums/Albums";
 import Shared from "../Shared/Shared";
 import Trash from "../Trash/Trash";
+import Admin from "../../components/Admin/Admin";
 import DetailedAlbum from "../DetailedAlbum/DetailedAlbum";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import DetailedFolder from "../DetailedFolder/DetailedFolder";
@@ -81,6 +82,7 @@ const AppLayout = () => {
                         open={Boolean(mainAnchorEl)}
                         onClose={handleCloseMainMenu}
                     >
+                        <MenuItem onClick={() => history.push("/admin")}>Admin</MenuItem>
                         <MenuItem onClick={() => history.push("/photos")}>Photos</MenuItem>
                         <MenuItem onClick={() => history.push("/albums")}>Albums</MenuItem>
                         <MenuItem onClick={() => history.push("/shared")}>Shared</MenuItem>
@@ -154,6 +156,9 @@ const AppLayout = () => {
                     </Route>
                     <Route exact path="/search">
                         <Search />
+                    </Route>
+                    <Route exact path="/admin">
+                        <Admin />
                     </Route>
                 </Switch>
             </div>

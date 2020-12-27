@@ -12,13 +12,14 @@ import './CustomHeader.css';
 import ImageInfos from "../../../components/ImageInfos/ImageInfos";
 
 const CustomHeader = ({
+                          index,
                           onClickInfo,
                           onClickDownload
                       }) => {
     return (
         <div className={'customHeader'}>
-            <InfoCircleFilled onClick={onClickInfo} className={'icon'}/>
-            <DownloadOutlined onClick={onClickDownload} className={'icon'}/>
+            <InfoCircleFilled onClick={() => onClickInfo(index)} className={'icon'}/>
+            <DownloadOutlined onClick={() => onClickDownload(index)} className={'icon'}/>
         </div>
     )
 }
