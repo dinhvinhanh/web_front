@@ -34,6 +34,7 @@ const setAccessToken = (response) => {
 };
 
 const getAccessToken = () => {
+  console.log(Cookies.get(cookieConstants.ACCESS_TOKEN))
   return Cookies.get(cookieConstants.ACCESS_TOKEN);
 };
 

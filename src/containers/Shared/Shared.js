@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {testImages, testAlbums} from "../../photos";
+
+import {useParams} from "react-router-dom";
 
 import SharedImages from "./SharedImages/SharedImages";
 import SharedFolder from "../../components/SharedFolder/SharedFolder";
@@ -8,6 +10,16 @@ import SharedFolder from "../../components/SharedFolder/SharedFolder";
 import FolderModal from "../../components/FolderModal/FolderModal";
 
 const Shared = () => {
+
+    const {id} = useParams();
+
+    useEffect(() => {
+        if (id === undefined) {
+            // call api to get root shared folders and foot photos
+        } else {
+            // call api to get detailed folders
+        }
+    }, [id])
 
     const [sharedImages, setSharedImages] = useState(testImages);
 
@@ -20,21 +32,6 @@ const Shared = () => {
 
     return (
         <div>
-            <div className={'folderListWrap'}>
-                {
-                    sharedFolders.map((folder, index) => {
-                        return (
-                            <div className={'folderWrap'}>
-                                <SharedFolder
-                                    index={index}
-                                    title={folder.title}
-                                    createdAt={folder.createdAt}
-                                    onClickAddToPhotos={() => handleClickAddToPhotos()}/>
-                            </div>
-                        )
-                    })
-                }
-            </div>
             <SharedImages handledImages={sharedImages} />
         </div>
     )

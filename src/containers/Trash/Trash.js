@@ -18,7 +18,7 @@ const Trash = () => {
 
     const [trashImages, setTrashImages] = useState(testImages)
 
-    const [deleteModal, setDeleteModal] = useState(true)
+    const [deleteModal, setDeleteModal] = useState(false)
 
     useEffect(() => {
         // call api to get all folders
@@ -46,22 +46,6 @@ const Trash = () => {
 
     return (
         <div>
-            <div className={'folderListWrap'}>
-                {
-                    folders.map((folder, index) => {
-                        return (
-                            <div className={'folderWrap'}>
-                                <TrashFolder
-                                    index={index}
-                                    title={folder.title}
-                                    createdAt={folder.createdAt}
-                                    onClickDeleteAction={handleClickDeleteAction}
-                                    onClickRestoreAction={handleClickRestoreAction}/>
-                            </div>
-                        )
-                    })
-                }
-            </div>
             <TrashImages handledImages={trashImages}/>
             <Dialog
                 open={deleteModal}

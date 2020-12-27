@@ -30,6 +30,19 @@ const useChosenIndex = () => {
     }
 }
 
+const useUploadImage = () => {
+    const uploadImages = (files) => {
+        const formData = new FormData()
+        formData.append('images', files);
+        formData.append('folder_id', 1)
+
+    };
+    return {
+        uploadImages
+    }
+}
+
 export default {
-    useChosenIndex
+    useChosenIndex,
+    useUploadImage
 }

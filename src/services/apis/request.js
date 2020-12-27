@@ -8,7 +8,7 @@ const Client = axios.create({
 });
 
 const getAuthorization = () => {
-  return authServices.isLoggedIn() ? authServices.getAccessToken() : '';
+  return authServices.isLoggedIn() ? `Bearer ${authServices.getAccessToken()}` : '';
 };
 
 // Do something before request is sent

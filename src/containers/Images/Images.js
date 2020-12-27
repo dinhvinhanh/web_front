@@ -8,7 +8,7 @@ import ImageInfos from "../../components/ImageInfos/ImageInfos";
 import MultipleSelectHeader from "../../components/MultipleSelectHeader/MultipleSelectHeader";
 import AlbumModal from "../../components/AlbumModal/AlbumModal";
 import SharingModal from "../../components/SharingModal/SharingModal";
-import FolderModal from "../../components/FolderModal/FolderModal";
+import TagModal from "../../components/TagModal/TagModal";
 import {imagesHooks} from "../../hooks";
 
 import './Images.css';
@@ -32,9 +32,9 @@ const Images = ({
 
     const [shareModalVisible, setShareModalVisible] = useState(false);
 
-    const [folderModalVisible, setFolderModalVisible] = useState(false);
-
     const [toolModalVisible, setToolModalVisible] = useState(false);
+
+    const [tagModalVisible, setTagModalVisible] = useState(false);
 
     const onChangeSelectAll = () => {
         let selectAllChecked = !allSelected;
@@ -77,14 +77,16 @@ const Images = ({
         console.log("handle click all albums")
     }
 
-    const handleClickAllFolder = () => {
-        setFolderModalVisible(true)
-        // open folder modal
-        console.log("handle click all folders")
-    }
-
     const handleClickAllShare = () => {
         setShareModalVisible(true);
+    }
+
+    const handleClickDownload = () => {
+
+    }
+
+    const handleClickAllTag = () => {
+        setTagModalVisible(true)
     }
 
     return (
@@ -97,8 +99,8 @@ const Images = ({
                             onClickAllStar={handleClickAllStar}
                             onClickAllDelete={handleClickAllDelete}
                             onClickAllAlbum={handleClickAllAlbum}
-                            onClickAllFolder={handleClickAllFolder}
-                            onClickAllShare={handleClickAllShare}/>
+                            onClickAllShare={handleClickAllShare}
+                        onClickAllTag={handleClickAllTag}/>
                     </Affix>
                 ) : null
             }
@@ -110,7 +112,7 @@ const Images = ({
                     customControls={[
                         <CustomHeader
                             onClickInfo={() => setInfoModalVisible(true)}
-                            onClickTool={() => setToolModalVisible(true)}/>
+                            onClickDownload={() => handleClickDownload()}/>
                     ]}
                     showLightboxThumbnails={true}
                     margin={4}
@@ -118,10 +120,10 @@ const Images = ({
                 <ImageInfos visible={infoModalVisible} onCloseInfo={() => setInfoModalVisible(false)}/>
                 <AlbumModal chosenImageIDs={chosenIndexs} modalVisible={albumModalVisible}
                             onCloseModal={() => setAlbumModalVisible(false)}/>
-                <FolderModal chosenImageIDs={chosenIndexs} modalVisible={folderModalVisible}
-                             onCloseModal={() => setFolderModalVisible(false)}/>
                 <SharingModal chosenImageIDs={chosenIndexs} modalVisible={shareModalVisible}
                               onCloseModal={() => setShareModalVisible(false)}/>
+                <TagModal chosenImageIDs={chosenIndexs} modalVisible={tagModalVisible}
+                          onCloseModal={() => setTagModalVisible(false)}/>
             </div>
         </div>
     );

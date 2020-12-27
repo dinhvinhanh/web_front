@@ -20,7 +20,10 @@ const LoginForm = () => {
 
   const onFinish = () => {
     authServices.login().then(
-        res => authServices.setAccessToken(res.data)
+        res => {
+          console.log(res.data)
+          authServices.setAccessToken(res.data)
+        }
     ).catch(
         err => console.log(err)
     )

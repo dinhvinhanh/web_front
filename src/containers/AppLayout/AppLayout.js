@@ -23,6 +23,8 @@ import Menu from "@material-ui/core/Menu";
 
 import Photos from "../Photos/Photos";
 
+import SpeedDials from "../../components/SpeedDials/SpeedDials";
+
 const {Header, Content, Footer, Sider} = Layout;
 
 const AppLayout = () => {
@@ -115,7 +117,8 @@ const AppLayout = () => {
                     </Menu>
                 </Toolbar>
             </AppBar>
-            <div>
+            <SpeedDials />
+            <div className={'content'}>
                 <Switch>
                     <Route exact path="/photos">
                         <Photos/>
@@ -133,10 +136,10 @@ const AppLayout = () => {
                         <DetailedAlbum />
                     </Route>
                     <Route exact path="/folders/:id">
-                        <DetailedFolder />
+                        <Photos />
                     </Route>
                     <Route exact path="/shared/:id">
-                        <DetailedAlbum />
+                        <Shared />
                     </Route>
                 </Switch>
             </div>

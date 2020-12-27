@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
 import {
-    useHistory,
-    useParams
+    useParams,
+    useHistory
 } from "react-router-dom";
 
 import AlbumImages from "./AlbumImages/AlbumImages";
@@ -25,6 +25,8 @@ import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import {albumServices} from "../../services";
+import {albumHelper} from "../../helpers";
 
 const testAlbum = {
     id: 1,
@@ -48,16 +50,20 @@ const useStyles = makeStyles((theme) => ({
 
 const DetailedAlbum = () => {
 
+    const history = useHistory();
+
     const { id } = useParams();
 
-    const [detailedAlbum, setDetailedAlbum] = useState(testAlbum)
+    const [detailedAlbum, setDetailedAlbum] = useState({})
 
     useEffect(() => {
-        //call api to get detailed album
-        console.log("NH Petrichor")
+        albumServices.getDetailedAlbum(id).then(
+            res => {
+                const formattedDetailedAlbum = albumHelper.formatDetailedAlbumRes(res.data)
+                setDetailedAlbum(formattedDetailedAlbum)
+            }
+        )
     }, [id])
-
-    const history = useHistory();
 
     const classes = useStyles();
 
@@ -83,15 +89,24 @@ const DetailedAlbum = () => {
     }
 
     const handleAgreeDeleteAlbum = () => {
-        const albumID = detailedAlbum.id;
-        console.log("delete permanent ", albumID)
-        // call api to delete album and history push to 'albums' again
+        const albumID = detailedAlbum.id
+        albumServices.deleteAlbum(albumID).then(
+            res => {
+                console.log(res);
+                history.push('/albums')
+            }
+        )
     }
 
     const handleAgreeRenameAlbum = () => {
         const albumID = detailedAlbum.id;
-        console.log("rename permanent ", newName)
-        // call api to delete album and history push to 'albums' again
+        albumServices.renameAlbum(albumID, newName).then(
+            res => {
+                setRenameModal(false);
+                setActionAnchorEl(null);
+                history.push(`/albums/${id}`)
+            }
+        )
     }
 
     return (

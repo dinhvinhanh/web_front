@@ -1,0 +1,7 @@
+.cameraIcon {
+    margin-top: 10px;
+}
+
+.cameraIcon:hover {
+    cursor: pointer;
+}

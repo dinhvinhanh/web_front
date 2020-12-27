@@ -26,13 +26,7 @@ const AlbumImages = ({
 
     const [infoModalVisible, setInfoModalVisible] = useState(false);
 
-    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-
     const handleClickDownload = () => {
-
-    }
-
-    const handleClickLocation = () => {
 
     }
 
@@ -86,9 +80,7 @@ const AlbumImages = ({
                     customControls={[
                         <AlbumImagesHeader
                             onClickInfo={() => setInfoModalVisible(true)}
-                            onClickDelete={() => setDeleteModalVisible(true)}
-                            onClickDownload={() => handleClickDownload()}
-                            onClickLocation={() => handleClickLocation()}/>
+                            onClickDownload={() => handleClickDownload()}/>
                     ]}
                     showLightboxThumbnails={true}
                     margin={4}

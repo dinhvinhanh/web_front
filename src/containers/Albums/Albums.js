@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import Album from "../../components/Album/Album";
 
+import { useHistory } from 'react-router-dom';
+
 import './Albums.css';
 
 import {testAlbums} from './../../photos';
@@ -13,10 +15,13 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import images from "../../hooks/images";
+import {albumServices} from "../../services";
+import {albumHelper} from "../../helpers";
 
 const Albums = () => {
+    const history = useHistory();
 
-    const [albums, setAlbums] = useState(testAlbums);
+    const [albums, setAlbums] = useState([]);
 
     const [chosenAlbumIndex, setChosenAlbumIndex] = useState(0);
 
@@ -27,7 +32,12 @@ const Albums = () => {
     const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
-        // call api to get all albums and handle the data
+        albumServices.getAlbumsList().then(
+            res => {
+                const formattedAlbums = albumHelper.formatAlbumListRes(res.data)
+                setAlbums(formattedAlbums)
+            }
+        )
     }, [])
 
     const handleClickRenameAction = (index) => {
@@ -42,15 +52,21 @@ const Albums = () => {
     }
 
     const handleAgreeDeleteAlbum = () => {
-        const albumID = chosenAlbumIndex;
-        console.log("delete permanent ", albumID)
-        // call api to delete album and history push to 'albums' again
+        const albumID = albums[chosenAlbumIndex].id
+        albumServices.deleteAlbum(albumID).then(
+            res => {
+                console.log(res)
+            }
+        )
     }
 
     const handleAgreeRenameAlbum = () => {
-        const albumID = chosenAlbumIndex;
-        console.log("rename permanent ", newName)
-        // call api to delete album and history push to 'albums' again
+        const albumID = albums[chosenAlbumIndex].id;
+        albumServices.renameAlbum(albumID, newName).then(
+            res => {
+                history.replace("/albums")
+            }
+        )
     }
 
     const handleOnChangeRenameText = (event) => {
@@ -85,7 +101,7 @@ const Albums = () => {
                 <DialogTitle id="alert-dialog-title">{"Rename album"}</DialogTitle>
                 <DialogContent>
                     <TextField
-                        defaultValue={albums[chosenAlbumIndex].title}
+                        defaultValue={albums[chosenAlbumIndex]?.title}
                         onChange={handleOnChangeRenameText}
                     />
                 </DialogContent>

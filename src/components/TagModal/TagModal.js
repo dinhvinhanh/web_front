@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import './SharingModal.css';
+import './TagModal.css';
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
@@ -18,9 +18,9 @@ import TextField from "@material-ui/core/TextField";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Avatar from "@material-ui/core/Avatar";
 
-import './SharingModal.css';
-import {folderServices, userServices} from "../../services";
-import {userHelper} from "../../helpers";
+import './TagModal.css';
+import {folderServices, tagServices, userServices} from "../../services";
+import {tagHelper, userHelper} from "../../helpers";
 
 const {Search} = Input;
 
@@ -32,15 +32,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SharingModal = ({
-                          chosenImageIDs,
-                          modalVisible,
-                          onCloseModal
-                      }) => {
+const TagModal = ({
+                      chosenImageIDs,
+                      modalVisible,
+                      onCloseModal
+                  }) => {
 
     const classes = useStyles();
 
-    const [users, setUsers] = useState([])
+    const [tags, setTags] = useState([])
 
     const [checked, setChecked] = useState([]);
 
@@ -56,15 +56,20 @@ const SharingModal = ({
         setChecked(newChecked);
     };
 
-    const handleShare = () => {
-
+    const handleAdd = () => {
+        tagServices.shareFolder(chosenImageIDs, checked).then(
+            res => {
+                console.log(res.data)
+                window.location.reload();
+            }
+        )
     }
 
     const footer = () => {
         if (checked.length !== 0) {
             return (
-                <Button variant="contained" color="secondary" onClick={handleShare}>
-                    Share
+                <Button variant="contained" color="secondary" onClick={handleAdd}>
+                    Add
                 </Button>
             )
         }
@@ -72,10 +77,12 @@ const SharingModal = ({
     }
 
     const handleSearch = (event) => {
-        userServices.searchUser(event.target.value).then(
+        tagServices.searchTag(event.target.value).then(
             res => {
-                const formattedUsers = userHelper.formatUser(res.data);
-                setUsers(formattedUsers)
+                const formattedTags = tagHelper.formatTagRes(res.data);
+                if (formattedTags.length !== 0) {
+                    setTags(formattedTags)
+                }
             }
         )
     }
@@ -87,25 +94,19 @@ const SharingModal = ({
             onCancel={() => onCloseModal()}
             centered
             footer={footer()}>
-            <TextField id="search" label="Search users" fullWidth onKeyUp={handleSearch}/>
+            <TextField id="search" label="Search tags" fullWidth onKeyUp={handleSearch}/>
             <div className={'sharesList'}>
                 <List className={classes.root}>
-                    {users.map((user, index) => {
+                    {tags.map((tag, index) => {
                         const labelId = `checkbox-list-secondary-label-${index}`;
                         return (
-                            <ListItem key={user.id} button>
-                                <ListItemAvatar>
-                                    <Avatar
-                                        alt={`Avatar n°${user.id + 1}`}
-                                        src={`${user.avatarUrl}`}
-                                    />
-                                </ListItemAvatar>
-                                <ListItemText id={labelId} primary={`${user.email}`}/>
+                            <ListItem key={tag.id} button>
+                                <ListItemText id={labelId} primary={`${tag.email}`}/>
                                 <ListItemSecondaryAction>
                                     <Checkbox
                                         edge="end"
-                                        onChange={handleCheck(user.id)}
-                                        checked={checked.indexOf(user.id) !== -1}
+                                        onChange={handleCheck(tag.id)}
+                                        checked={checked.indexOf(tag.id) !== -1}
                                         inputProps={{'aria-labelledby': labelId}}
                                     />
                                 </ListItemSecondaryAction>
@@ -118,4 +119,4 @@ const SharingModal = ({
     )
 }
 
-export default SharingModal;
+export default TagModal;
