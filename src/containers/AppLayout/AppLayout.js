@@ -27,6 +27,7 @@ import Photos from "../Photos/Photos";
 import Search from "../Search/Search";
 
 import SpeedDials from "../../components/SpeedDials/SpeedDials";
+import {authServices} from "../../services";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -117,7 +118,10 @@ const AppLayout = () => {
                         onClose={handleCloseAccountMenu}
                     >
                         <MenuItem onClick={() => history.push("/profile")}>Profile</MenuItem>
-                        <MenuItem onClick={() => history.push("/login")}>Logout</MenuItem>
+                        <MenuItem onClick={() => {
+                            authServices.logout()
+                            history.push("/login")
+                        }}>Logout</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

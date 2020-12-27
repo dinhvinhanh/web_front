@@ -61,26 +61,24 @@ const Search = () => {
     }
 
     const chooseSearchBar = () => {
-        if (mode === 1) {
-            return (
-
-            )
-        }
-        if (mode === 2) {
-            return (
-                <Autocomplete
-                    multiple
-                    limitTags={2}
-                    id="multiple-limit-tags"
-                    options={top100Films}
-                    getOptionLabel={(option) => option.title}
-                    defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
-                    renderInput={(params) => (
-                        <TextField {...params} variant="outlined" label="limitTags" placeholder="Favorites" />
-                    )}
-                />
-            )
-        }
+        // if (mode === 1) {
+        // }
+        // if (mode === 2) {
+        //     return (
+        //         <Autocomplete
+        //             multiple
+        //             limitTags={2}
+        //             id="multiple-limit-tags"
+        //             options={top100Films}
+        //             getOptionLabel={(option) => option.title}
+        //             defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
+        //             renderInput={(params) => (
+        //                 <TextField {...params} variant="outlined" label="limitTags" placeholder="Favorites" />
+        //             )}
+        //         />
+        //     )
+        // }
+        return <div></div>
     }
 
     return (
