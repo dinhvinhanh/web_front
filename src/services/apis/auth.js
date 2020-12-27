@@ -12,11 +12,11 @@ const isLoggedIn = () => {
   return accessToken ? true : false;
 };
 
-const login = () => {
+const login = (email, password) => {
   return Client.post(
     authURL + '/login', {
-        email: "gducky@gmail.com",
-        password: "gduckypassword"
+        email: email,
+        password: password
       }
   );
 };

@@ -4,9 +4,11 @@ import FormRegister from "../../components/Register/FormRegister";
 import "../../components/Register/FormRegister.css";
 const Register = () => {
   return (
-    <div className="container">
-      <FormRegister />
-    </div>
+      <div className={'registerborder1'}>
+          <div className="container">
+              <FormRegister />
+          </div>
+      </div>
   );
 };
 export default Register;

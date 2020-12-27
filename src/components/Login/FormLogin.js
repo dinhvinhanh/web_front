@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import logo1 from "./../../assets/logo1.png";
 import { authServices } from "../../services";
+import {useHistory} from 'react-router-dom';
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   const handleOnChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -19,10 +22,12 @@ const LoginForm = () => {
   };
 
   const onFinish = () => {
-    authServices
-        .login()
-        .then((res) => authServices.setAccessToken(res.data))
-        .catch((err) => console.log(err));
+    authServices.login(username, password).then(
+        res => {
+          authServices.setAccessToken(res.data);
+          history.push('/photos')
+        }
+    )
   };
 
   const [autoCompleteResult, setAutoCompleteResult] = useState([]);
@@ -43,6 +48,14 @@ const LoginForm = () => {
     label: email,
     value: email,
   }));
+
+  const handleLogin = () => {
+    authServices.login(username, password).then(
+        res => {
+          history.push('/photos')
+        }
+    )
+  }
 
   return (
       <Form
@@ -110,6 +123,7 @@ const LoginForm = () => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                // onClick={handleLogin}
             >
               Log in
             </Button>
@@ -117,9 +131,9 @@ const LoginForm = () => {
           <div>
             <Form.Item>
               Or <a href="/register"> register now!</a>
-              <a className="login-form-forgot" href="/forgot_password">
-                Forgot password
-              </a>
+              {/*<a className="login-form-forgot" href="/forgot_password">*/}
+              {/*  Forgot password*/}
+              {/*</a>*/}
             </Form.Item>
           </div>
         </div>

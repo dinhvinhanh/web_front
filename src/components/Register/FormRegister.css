@@ -1,5 +1,29 @@
-.container {
-  max-width: 500px;
+@import "antd/dist/antd.css";
+
+.registercontainer {
+  max-width: 400px;
   width: 100%;
-  margin: 150px auto;
+  margin:  auto;
+}
+
+.register-form-button1{
+  width:100%;
+}
+
+.registerinputform1{
+  height:50px;
+}
+
+.registerborder1{
+  width: 650px;
+  height: 750px;
+  background: #e8eaed;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  margin: 50px auto;
+}
+
+.registerlogo1 {
+  text-align: center;
+  padding-bottom: 0px;
 }
