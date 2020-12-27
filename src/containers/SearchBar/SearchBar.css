@@ -1,0 +1,20 @@
+*{
+    margin: 0px; 
+    padding: 0px;
+    font-family: sans-serif;
+}
+.SearchBar{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+.DropDown{
+    border: solid 3px;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}

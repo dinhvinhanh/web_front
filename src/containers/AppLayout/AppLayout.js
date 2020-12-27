@@ -4,6 +4,7 @@ import {Link, Switch, Route} from 'react-router-dom';
 
 import {useHistory} from "react-router-dom";
 
+import User from "../User/User";
 import Images from "../Images/Images";
 import Albums from "../Albums/Albums";
 import Shared from "../Shared/Shared";
@@ -77,6 +78,7 @@ const AppLayout = () => {
                         <MenuItem onClick={() => history.push("/albums")}>Albums</MenuItem>
                         <MenuItem onClick={() => history.push("/shared")}>Shared</MenuItem>
                         <MenuItem onClick={() => history.push("/trash")}>Trash</MenuItem>
+                        <MenuItem onClick={() => history.push("/user")}>User</MenuItem>
                     </Menu>
                     <div className="logo">
                         <img className={'mainLogo'} src={logo} alt="logo" onClick={() => {
@@ -126,6 +128,9 @@ const AppLayout = () => {
                     </Route>
                     <Route exact path="/images">
                         <Trash/>
+                    </Route>
+                    <Route exact path="/user">
+                        <User/>
                     </Route>
                 </Switch>
             </div>
