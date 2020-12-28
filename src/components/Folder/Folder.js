@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Folder = ({
+                    id,
                     index,
                     title,
                     createdAt,
@@ -52,6 +53,7 @@ const Folder = ({
     return (
         <Card className={classes.root}>
             <CardHeader
+                onClick={() => history.push(`/folders/${id}`)}
                 avatar={
                     <FolderIcon aria-label="foldersIcon"/>
                 }
